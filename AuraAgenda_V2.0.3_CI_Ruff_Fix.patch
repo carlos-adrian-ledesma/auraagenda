@@ -1,0 +1,169 @@
+diff --git a/app/i18n/translations.py b/app/i18n/translations.py
+index 9e27ef2..ee3134c 100644
+--- a/app/i18n/translations.py
++++ b/app/i18n/translations.py
+@@ -236,11 +236,11 @@ CHOICE_LABELS = {
+         "Yes":"Sí", "No":"No", "Private":"Privado", "reference":"Referencia", "local_copy":"Copia local",
+         "income":"Ingreso", "expense":"Gasto", "paid":"Pagado", "active":"Activo", "paused":"Pausado", "finished":"Finalizado",
+         "Personal":"Personal", "Trabajo":"Trabajo", "Salud":"Salud", "Belleza":"Belleza", "Familia":"Familia", "Social":"Social", "Estudios":"Estudios", "Viajes":"Viajes", "Compras":"Compras", "Trámites":"Trámites", "Otros":"Otros",
+-        "Compras":"Compras", "Supermercado":"Supermercado", "Viaje":"Viaje", "Equipaje":"Equipaje", "Cumpleaños":"Cumpleaños", "Pendientes":"Pendientes", "Regalos":"Regalos", "Ideas":"Ideas", "Películas":"Películas", "Libros":"Libros", "Wishlist":"Lista de deseos", "Personalizada":"Personalizada",
++        "Supermercado":"Supermercado", "Viaje":"Viaje", "Equipaje":"Equipaje", "Cumpleaños":"Cumpleaños", "Pendientes":"Pendientes", "Regalos":"Regalos", "Ideas":"Ideas", "Películas":"Películas", "Libros":"Libros", "Wishlist":"Lista de deseos", "Personalizada":"Personalizada",
+         "Skincare AM":"Skincare AM", "Skincare PM":"Skincare PM", "Cabello":"Cabello", "Uñas":"Uñas", "Tratamientos":"Tratamientos", "Spa":"Spa", "Ejercicio":"Ejercicio", "Descanso":"Descanso", "Meditación":"Meditación", "Lectura":"Lectura", "Tiempo personal":"Tiempo personal",
+         "Cita médica":"Cita médica", "Ginecología":"Ginecología", "Odontología":"Odontología", "Dermatología":"Dermatología", "Control":"Control", "Medicación":"Medicación", "Estudio":"Estudio", "Nota":"Nota",
+-        "Trabajo":"Trabajo", "Casual":"Casual", "Fiesta":"Fiesta", "Cena":"Cena", "Viaje":"Viaje", "Gym":"Gym", "Invierno":"Invierno", "Verano":"Verano",
+-        "Low":"Baja", "Medium":"Media", "High":"Alta",
++        "Casual":"Casual", "Fiesta":"Fiesta", "Cena":"Cena", "Gym":"Gym", "Invierno":"Invierno", "Verano":"Verano",
++        "Medium":"Media",
+     },
+     "en": {
+         "Low":"Low", "Normal":"Normal", "High":"High", "Urgent":"Urgent",
+diff --git a/app/main_window.py b/app/main_window.py
+index feb8856..3229e7e 100644
+--- a/app/main_window.py
++++ b/app/main_window.py
+@@ -181,7 +181,7 @@ class MainWindow(QMainWindow):
+         for r in rows:
+             if str(r['last_triggered'] or '').startswith(now.strftime('%Y-%m-%dT%H:%M')): continue
+             self.show_tray_notification(str(r['name']), str(r['message'] or self.i18n.t('tray.running')), True, 8000)
+-            box=QMessageBox(self); box.setWindowTitle(str(r['name'])); box.setText(str(r['message'] or r['name'])); snooze=box.addButton(self.i18n.t('alarm.snooze_10'),QMessageBox.ActionRole); done=box.addButton(self.i18n.t('alarm.completed'),QMessageBox.AcceptRole); close=box.addButton(self.i18n.t('common.close'),QMessageBox.RejectRole); box.exec()
++            box=QMessageBox(self); box.setWindowTitle(str(r['name'])); box.setText(str(r['message'] or r['name'])); snooze=box.addButton(self.i18n.t('alarm.snooze_10'),QMessageBox.ActionRole); done=box.addButton(self.i18n.t('alarm.completed'),QMessageBox.AcceptRole); box.addButton(self.i18n.t('common.close'),QMessageBox.RejectRole); box.exec()
+             clicked=box.clickedButton()
+             if clicked==snooze:
+                 later=now+timedelta(minutes=10); self.db.execute('UPDATE alarms SET alarm_date=?,alarm_time=?,last_triggered=?,updated_at=? WHERE id=?',(later.strftime('%Y-%m-%d'),later.strftime('%H:%M'),self.db.now(),self.db.now(),r['id'])); continue
+diff --git a/app/pages/__init__.py b/app/pages/__init__.py
+index f5c8470..3a5c99d 100644
+--- a/app/pages/__init__.py
++++ b/app/pages/__init__.py
+@@ -15,3 +15,25 @@ from .lists import ListsPage
+ from .habits import HabitsPage
+ from .cycle import CyclePage
+ from .mood import MoodPage
++
++
++__all__ = [
++    "DashboardPage",
++    "CalendarPage",
++    "WaterPage",
++    "DiaryPage",
++    "GenericCrudPage",
++    "SettingsPage",
++    "BackupPage",
++    "TrashPage",
++    "StatisticsPage",
++    "FinancePage",
++    "StylePage",
++    "WellnessPage",
++    "LibraryPage",
++    "MultimediaPage",
++    "ListsPage",
++    "HabitsPage",
++    "CyclePage",
++    "MoodPage",
++]
+diff --git a/app/pages/calendar.py b/app/pages/calendar.py
+index f75399f..392b832 100644
+--- a/app/pages/calendar.py
++++ b/app/pages/calendar.py
+@@ -1,6 +1,5 @@
+ from __future__ import annotations
+ from datetime import date,timedelta
+-from PySide6.QtCore import QDate
+ from PySide6.QtWidgets import QCalendarWidget,QHBoxLayout,QPushButton,QTableWidgetItem
+ from .generic import GenericCrudPage
+ from ..widgets import FieldSpec
+diff --git a/app/pages/settings.py b/app/pages/settings.py
+index 51fcc79..12de94d 100644
+--- a/app/pages/settings.py
++++ b/app/pages/settings.py
+@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt, Signal, QTimer
+ from PySide6.QtWidgets import (
+     QApplication, QCheckBox, QComboBox, QFileDialog, QFormLayout, QFrame, QHBoxLayout,
+     QInputDialog, QLabel, QLineEdit, QListWidget, QMessageBox, QPushButton, QSpinBox,
+-    QStackedWidget, QVBoxLayout, QWidget
++    QStackedWidget
+ )
+ 
+ from .base import Page
+@@ -16,7 +16,7 @@ from ..services.migration import LegacyMigrationService
+ from ..services.privacy import make_pin_hash, validate_new_pin
+ from ..styles import THEMES
+ from ..services.network_guard import canonical_trusted_networks, primary_local_ipv4, suggested_local_network
+-from ..services.recovery import RecoveryService, RecoveryError
++from ..services.recovery import RecoveryService
+ from ..widgets import ScrollPage, SectionCard
+ 
+ 
+diff --git a/app/pages/statistics.py b/app/pages/statistics.py
+index 0e6d50c..a40e2b4 100644
+--- a/app/pages/statistics.py
++++ b/app/pages/statistics.py
+@@ -1,6 +1,6 @@
+ from __future__ import annotations
+ from datetime import date,timedelta
+-from PySide6.QtWidgets import QGridLayout,QLabel,QProgressBar
++from PySide6.QtWidgets import QGridLayout
+ from .base import Page
+ from .dashboard import MetricCard
+ class StatisticsPage(Page):
+diff --git a/app/services/migration.py b/app/services/migration.py
+index 4f11d44..c536444 100644
+--- a/app/services/migration.py
++++ b/app/services/migration.py
+@@ -5,7 +5,7 @@ from datetime import datetime
+ from pathlib import Path
+ 
+ from ..database import Database
+-from ..paths import BACKUP_DIR, DB_PATH, LEGACY_DB, LEGACY_ROOT, DATA_ROOT
++from ..paths import BACKUP_DIR, DB_PATH, LEGACY_DB, LEGACY_ROOT
+ 
+ class LegacyMigrationService:
+     def exists(self) -> bool:
+diff --git a/app/services/recovery.py b/app/services/recovery.py
+index 8965450..e776989 100644
+--- a/app/services/recovery.py
++++ b/app/services/recovery.py
+@@ -3,7 +3,6 @@ from __future__ import annotations
+ import base64
+ import json
+ import os
+-import shutil
+ import struct
+ import tempfile
+ import uuid
+diff --git a/tests/test_backup_hardening.py b/tests/test_backup_hardening.py
+index de0ced9..be76fc5 100644
+--- a/tests/test_backup_hardening.py
++++ b/tests/test_backup_hardening.py
+@@ -42,7 +42,6 @@ class BackupHardeningTests(unittest.TestCase):
+             db.soft_delete('sqlite_master', 1)
+ 
+     def test_hash_mismatch_is_rejected(self):
+-        import hashlib
+         td, db = temp_db()
+         self.addCleanup(td.cleanup)
+         with tempfile.TemporaryDirectory() as root_text:
+diff --git a/tests/test_navigation.py b/tests/test_navigation.py
+index 4c4f739..65cdd3c 100644
+--- a/tests/test_navigation.py
++++ b/tests/test_navigation.py
+@@ -4,6 +4,5 @@ class NavigationTests(unittest.TestCase):
+  def test_navigation_uses_ids_not_stack_indices(self):
+   text=(Path(__file__).parents[1]/'app'/'main_window.py').read_text(encoding='utf-8'); self.assertIn("def go(self,page_id",text); self.assertIn("self.pages.get(page_id)",text); self.assertNotIn('def go(self,index',text)
+  def test_all_page_ids_are_unique(self):
+-  from ast import literal_eval
+   text=(Path(__file__).parents[1]/'app'/'main_window.py').read_text(encoding='utf-8'); self.assertIn("('dashboard','page.dashboard')",text)
+ if __name__=='__main__': unittest.main()
+diff --git a/tests/test_security_recovery.py b/tests/test_security_recovery.py
+index 27d6c8d..181a965 100644
+--- a/tests/test_security_recovery.py
++++ b/tests/test_security_recovery.py
+@@ -1,8 +1,5 @@
+-import tempfile
+ import unittest
+-from pathlib import Path
+-
+-from app.services.network_guard import canonical_trusted_networks, network_status
++from app.services.network_guard import canonical_trusted_networks
+ from app.services.privacy import (
+     AttemptLimiter,
+     generate_master_key,
