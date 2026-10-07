@@ -1,0 +1,7 @@
+AuraAgenda — Personal Life Planner
+Version: 2.0.3
+Edition: Security Hardening & Owner Recovery
+Architecture: Desktop local-first / Windows / SQLite / PySide6
+Languages: Español / English
+Publisher: QuintaDimension Tecnologia
+Security model: per-installation owner recovery key; no universal backdoor

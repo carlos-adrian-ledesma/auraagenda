@@ -1,0 +1,22 @@
+AuraAgenda 2.0.3 Security & Recovery — automated validation
+
+Packaging environment results:
+- python -m compileall -q . : PASS
+- python -m unittest discover -s tests -v : 49/49 PASS
+
+Security coverage added in V2.0.3:
+- owner master key hashing/verification
+- encrypted recovery kit round-trip
+- PIN policy and progressive retry delay
+- tray security gate source guard
+- cancel-PIN locked-state regression guard
+- trusted IPv4/CIDR parsing
+- SQL soft-delete/restore allowlist
+- backup path traversal rejection
+- backup wrong-application rejection
+- repository secret/data hygiene
+
+Environment limitations:
+- PySide6 is not installed in this packaging environment, so the real GUI was not launched here.
+- Ruff is configured but not installed here; final `ruff check` / `ruff format --check` remains a release-checklist item.
+- pip-audit was not run against current online package metadata.

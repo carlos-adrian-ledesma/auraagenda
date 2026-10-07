@@ -1,0 +1,13 @@
+AuraAgenda 2.0.3 — GitHub Final Runnable validation
+
+Packaging environment validation:
+- python -m compileall -q . : PASS
+- python -m unittest discover -s tests -v : PASS (49/49)
+- repository runtime-file scan: PASS
+- common secret-pattern scan: PASS
+- required runnable launch/source files: PASS
+
+Environment limitation:
+- PySide6 is not installed in the packaging container, so an interactive GUI smoke test was not performed here.
+- The Windows launcher installs runtime dependencies into a local .venv before starting the application.
+- Ruff is configured for CI but was not available in the packaging container.

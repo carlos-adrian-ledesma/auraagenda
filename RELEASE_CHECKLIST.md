@@ -1,0 +1,22 @@
+# AuraAgenda 2.0.3 Release Checklist
+
+- [ ] `python -m compileall -q .`
+- [ ] `python -m unittest discover -s tests -v`
+- [ ] `ruff check .`
+- [ ] `ruff format --check .`
+- [ ] Run `pip-audit` with current internet access
+- [ ] Open app on Windows and test 1366×768, 1600×900, 1920×1080
+- [ ] Test Windows scaling at 100%, 125% and 150%
+- [ ] Test ES → EN → ES
+- [ ] Test all visual themes
+- [ ] Test PIN lock and tray reopening
+- [ ] Test master recovery PIN reset
+- [ ] Test trusted-network lock on a disposable test profile
+- [ ] Create encrypted recovery kit and restore it on a clean profile
+- [ ] Confirm current backup is created before restore
+- [ ] Run SQLite `PRAGMA integrity_check`
+- [ ] Scan repository for secrets, databases and logs
+- [ ] Verify third-party licenses for exact package versions
+- [ ] Verify installer contents
+- [ ] Code-sign public binary/installer if a certificate is available
+- [ ] Generate `SHA256SUMS.txt` from final release artifacts
