@@ -1,14 +1,3 @@
-# Screenshots
+# AuraAgenda screenshots
 
-Add only screenshots captured from the real AuraAgenda application.
-
-Recommended files:
-
-- `dashboard.png`
-- `settings.png`
-- `calendar.png`
-- `tasks.png`
-- `finance.png`
-- `wellness.png`
-
-Before committing, verify that no screenshot contains names, diary content, health information, financial data, email addresses, file paths or other personal information.
+These images are captured directly from the real AuraAgenda PySide6 application (v2.0.3) using an isolated temporary database populated with synthetic demo data. No personal production data is included.
