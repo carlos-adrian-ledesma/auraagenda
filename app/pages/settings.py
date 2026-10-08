@@ -12,7 +12,6 @@ from PySide6.QtWidgets import (
 
 from .base import Page
 from ..design_system import SIZING
-from ..services.migration import LegacyMigrationService
 from ..services.privacy import make_pin_hash, validate_new_pin
 from ..styles import THEMES
 from ..services.network_guard import canonical_trusted_networks, primary_local_ipv4, suggested_local_network
@@ -296,11 +295,7 @@ class SettingsPage(Page):
         self.retention = self._cap(QSpinBox())
         self.retention.setRange(1, 365)
         self.retention.setSuffix(" days")
-        self.import_legacy = QPushButton()
-        self.import_legacy.setMaximumWidth(280)
-        self.import_legacy.clicked.connect(self.import_old)
         self._add_row(form, "settings.backup_retention", self.retention)
-        form.addRow(QLabel(""), self.import_legacy)
         page.add_stretch()
 
         # Files ---------------------------------------------------------------
@@ -371,7 +366,6 @@ class SettingsPage(Page):
         self.create_recovery_btn.setText(self.i18n.t("security.create_recovery_kit"))
         self.restore_recovery_btn.setText(self.i18n.t("security.restore_recovery_kit"))
         self.use_current_network_btn.setText(self.i18n.t("security.use_current_network"))
-        self.import_legacy.setText(self.i18n.t("settings.import_v1"))
         self.reset_btn.setText(self.i18n.t("settings.reset"))
         self.save_btn.setText(self.i18n.t("settings.save_changes"))
         self.save_hint.setText(self.i18n.t("settings.unsaved_hint"))
@@ -602,22 +596,3 @@ class SettingsPage(Page):
         self.language_changed.emit("es")
         self.theme_changed.emit("Pink Crystal")
         self.settings_changed.emit()
-
-    def import_old(self):
-        svc = LegacyMigrationService()
-        if not svc.exists():
-            QMessageBox.information(
-                self, self.i18n.t("success.title"),
-                "No se encontraron datos V1." if self.i18n.language == "es" else "No V1 data found.",
-            )
-            return
-        if QMessageBox.question(
-            self, self.i18n.t("common.confirm"), self.i18n.t("migration.detected")
-        ) != QMessageBox.Yes:
-            return
-        try:
-            svc.migrate(self.db)
-            QMessageBox.information(self, self.i18n.t("success.title"), self.i18n.t("migration.done"))
-            self.settings_changed.emit()
-        except Exception as exc:
-            QMessageBox.critical(self, self.i18n.t("error.title"), str(exc))

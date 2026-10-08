@@ -1,5 +1,5 @@
 #define MyAppName "AuraAgenda"
-#define MyAppVersion "2.0.3"
+#define MyAppVersion "2.0.4"
 #define MyAppPublisher "QuintaDimension Tecnologia"
 #define MyAppExeName "AuraAgenda.exe"
 
@@ -11,7 +11,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={localappdata}\Programs\AuraAgenda
 DefaultGroupName=AuraAgenda
 OutputDir=output
-OutputBaseFilename=AuraAgenda_Setup_2.0.3
+OutputBaseFilename=AuraAgenda_Setup_2.0.4
 SetupIconFile=..\assets\AuraAgenda.ico
 Compression=lzma
 SolidCompression=yes

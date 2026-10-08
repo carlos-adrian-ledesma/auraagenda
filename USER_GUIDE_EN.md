@@ -1,4 +1,4 @@
-# User Guide — AuraAgenda 2.0.3
+# User Guide — AuraAgenda 2.0.4
 
 On first launch, the setup wizard lets you choose language, name, country, timezone, currency, date format, optional modules, water goal, theme and an optional local PIN. Health information is never mandatory.
 
@@ -10,7 +10,7 @@ Trash can restore deleted records or permanently remove them after confirmation.
 
 Cycle, health, sleep and wellness modules are for personal organization only. They do not diagnose or replace medical advice.
 
-## Owner security and recovery — V2.0.3
+## Owner security and recovery — V2.0.4
 
 Under **Settings → Privacy**, you can generate a master recovery key unique to that installation. Store it away from the PC. There is no universal developer password.
 

@@ -7,7 +7,7 @@ from pathlib import Path
 APP_NAME = "AuraAgenda"
 DISPLAY_NAME = "AuraAgenda"
 SUBTITLE = "Personal Life Planner"
-VERSION = "2.0.3"
+VERSION = "2.0.4"
 PUBLISHER = "QuintaDimension Tecnologia"
 
 
@@ -31,8 +31,6 @@ BACKUP_DIR = DATA_ROOT / "Backups"
 EXPORT_DIR = DATA_ROOT / "Exports"
 ATTACHMENTS_DIR = DATA_ROOT / "Attachments"
 TRASH_DIR = DATA_ROOT / "Trash"
-LEGACY_ROOT = documents_dir() / "DanicaDavis"
-LEGACY_DB = LEGACY_ROOT / "BaseDatos" / "danica_davis.db"
 
 FOLDERS = [
     DB_DIR, LOG_DIR, BACKUP_DIR, EXPORT_DIR, ATTACHMENTS_DIR, TRASH_DIR,

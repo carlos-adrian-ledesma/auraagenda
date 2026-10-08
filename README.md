@@ -1,30 +1,47 @@
 # AuraAgenda
 
-**Personal Life Planner — Windows desktop / local-first**
+**Personal Life Planner — Windows desktop · Local-first · Privacy-focused**
 
-AuraAgenda 2.0.3 is a complete, runnable Windows desktop application built with Python, PySide6 and SQLite. This repository contains the application source, launch scripts, assets, tests, security/recovery services, documentation and GitHub automation needed to install and run the program from source.
+AuraAgenda 2.0.4 is a complete Windows desktop personal life planner built with Python, PySide6 and SQLite.
 
-## Run AuraAgenda on Windows
+The application is designed around a local-first architecture: personal information is stored on the user's device, without requiring a cloud account or a permanent remote service.
 
-### Recommended
+## Screenshots
 
-1. Install Python 3.11 or 3.12.
-2. Download or clone this repository.
-3. Open the `AuraAgenda` folder.
-4. Double-click `INICIAR_AURAAGENDA.bat`.
+All screenshots below were captured directly from the real AuraAgenda PySide6 application using an isolated demo database with synthetic data. No personal production data is included.
 
-The launcher creates a local `.venv`, installs the runtime dependencies from `requirements.txt` and starts AuraAgenda.
+### Dashboard
 
-After the first installation, `run_windows.bat` can be used for normal startup.
+![AuraAgenda Dashboard](docs/screenshots/dashboard.png)
 
-### Recovery launcher
+### Calendar
 
-`RECUPERAR_AURAAGENDA.bat` opens the recovery workflow for encrypted `.aurarecovery` kits.
+![AuraAgenda Calendar](docs/screenshots/calendar.png)
+
+### Finance
+
+![AuraAgenda Finance](docs/screenshots/finance.png)
+
+### Wellness
+
+![AuraAgenda Wellness](docs/screenshots/wellness.png)
+
+### Statistics
+
+![AuraAgenda Statistics](docs/screenshots/statistics.png)
+
+### Settings
+
+![AuraAgenda Settings](docs/screenshots/settings.png)
+
+### Privacy & Security
+
+![AuraAgenda Privacy and Security](docs/screenshots/settings_privacy.png)
 
 ## Main capabilities
 
 - dashboard and quick actions;
-- calendar with day/week/month/list workflows;
+- calendar with day, week, month and list workflows;
 - tasks, alarms, habits and checklists;
 - diary, writing, goals and important people;
 - wellness, cycle, water, sleep, mood and self-care modules;
@@ -32,83 +49,102 @@ After the first installation, `run_windows.bat` can be used for normal startup.
 - finances, travel, library and multimedia projects;
 - statistics, backups, trash/recovery and configuration;
 - Spanish / English internationalization;
-- multiple dark pink/violet themes;
-- local PIN lock and owner-controlled recovery;
-- encrypted recovery kits using AES-256-GCM with scrypt-derived keys;
-- optional trusted local IPv4/CIDR guard as a supplemental control;
-- hardened backup validation with SHA-256 manifests and SQLite integrity checks.
+- multiple pink/violet visual themes;
+- local PIN protection;
+- owner-controlled master recovery;
+- encrypted `.aurarecovery` recovery kits;
+- optional trusted local IPv4/CIDR guard;
+- hardened backup validation.
 
 ## Security model
 
-AuraAgenda does **not** use an IP address as a password. The optional trusted-network guard is only an additional restriction.
+AuraAgenda is designed without a universal developer password or hidden recovery backdoor.
 
-Each installation can create its own owner recovery key. There is no universal developer password or hidden backdoor.
+Each installation can create its own owner master recovery key.
 
-The normal SQLite database is **not claimed to be encrypted at rest**. The local PIN protects access through the AuraAgenda interface. Encrypted recovery kits are encrypted separately. Read `SECURITY_RECOVERY.md`, `SECURITY.md` and `PRIVACY.md` for the exact model and limitations.
+Recovery kits use:
 
-## Data location
+- AES-256-GCM authenticated encryption;
+- scrypt-derived encryption keys;
+- unique cryptographic salt and nonce;
+- owner-controlled recovery credentials.
 
-By default, user data is stored outside the repository under the Windows user profile, in the AuraAgenda data directory. Do not commit personal databases, logs, backups, recovery kits or credentials.
+The optional trusted-network feature uses only local IPv4/CIDR information as an additional restriction. An IP address is not treated as authentication.
 
-The repository `.gitignore` excludes the common runtime artifacts.
+AuraAgenda does not query a public-IP service and does not expose a remote-control server or network listener.
+
+The normal SQLite database is not claimed to be encrypted at rest. The application PIN protects access through the AuraAgenda interface, while encrypted recovery kits provide a separately protected recovery mechanism.
+
+See:
+
+- `SECURITY.md`
+- `SECURITY_RECOVERY.md`
+- `PRIVACY.md`
+
+for the complete security model and limitations.
+
+## Local data
+
+Personal runtime data is stored outside the Git repository in the user's Windows profile.
+
+The repository does not require personal databases, backups, logs, recovery kits or credentials.
+
+`.gitignore` excludes common sensitive/runtime artifacts including:
+
+- `.env` files;
+- SQLite databases;
+- logs;
+- backups;
+- private keys and certificates;
+- virtual environments;
+- `.aurarecovery` files.
+
+## Run AuraAgenda on Windows
+
+### Recommended source launcher
+
+1. Install Python 3.11 or Python 3.12.
+2. Clone or download this repository.
+3. Open the AuraAgenda directory.
+4. Double-click:
+
+`INICIAR_AURAAGENDA.bat`
+
+The launcher:
+
+- creates a local `.venv`;
+- installs runtime dependencies inside that environment;
+- starts AuraAgenda.
+
+After installation, normal startup can use:
+
+`run_windows.bat`
+
+### Recovery launcher
+
+Encrypted recovery kits can be restored using:
+
+`RECUPERAR_AURAAGENDA.bat`
 
 ## Technologies
 
-- Python 3.11 / 3.12 target
+- Python 3.11 / 3.12
 - PySide6 / Qt
 - SQLite
-- `cryptography`
-- `zoneinfo` + `tzdata`
-- standard-library `unittest`
+- cryptography
+- zoneinfo + tzdata
+- unittest
+- Ruff
+- pip-audit
+- GitHub Actions
+- Dependabot
 
-## Development checks
+## Quality and security validation
+
+Local validation:
 
 ```bash
 python -m compileall -q .
 python -m unittest discover -s tests -v
-```
-
-For QA tooling:
-
-```bash
-python -m pip install -r requirements-dev.txt
 python -m ruff check app tests --select F,E9
-```
-
-GitHub Actions runs compile checks, Ruff safety checks and the unit/security suite on Windows with Python 3.11 and 3.12.
-
-## Build
-
-`build_exe.bat` is provided for the Windows build workflow. Building a standalone executable requires the build dependencies in `requirements-build.txt` and should be validated on Windows before distributing binaries.
-
-## Repository structure
-
-- `app/` — complete application source;
-- `app/pages/` — application modules/pages;
-- `app/services/` — backup, privacy, network guard, migration and recovery services;
-- `app/i18n/` — ES/EN translation catalogue;
-- `tests/` — unit, migration, security and design-system tests;
-- `assets/` — AuraAgenda visual assets;
-- `docs/` — project documentation and screenshot location;
-- `.github/` — CI and Dependabot configuration;
-- `INICIAR_AURAAGENDA.bat` — first-run/install-and-start launcher;
-- `run_windows.bat` — normal source launcher;
-- `RECUPERAR_AURAAGENDA.bat` — recovery launcher.
-
-## Screenshots
-
-Only screenshots captured from the real application should be committed. Do not upload screenshots containing personal information. See `docs/screenshots/README.md`.
-
-## Medical and financial scope
-
-Wellness, cycle, sleep, symptoms and medication features are personal organization tools. AuraAgenda does not diagnose, prescribe or replace professional medical care.
-
-Financial features are for personal organization and are not banking, investment advice or certified accounting software.
-
-## Copyright
-
-Copyright © 2026 Carlos Adrián Ledesma. All rights reserved.
-
-AuraAgenda source code is published for portfolio, technical evaluation and demonstration purposes. No open-source license is granted unless a separate license file expressly states otherwise.
-
-Third-party software retains its own licenses and copyrights. See `COPYRIGHT.md` and `THIRD_PARTY_NOTICES.md`.
+python -m pip_audit -r requirements.txt

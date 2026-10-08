@@ -1,4 +1,4 @@
-# Visual Design System — AuraAgenda 2.0.3
+# Visual Design System — AuraAgenda 2.0.4
 
 ## Goal
 
