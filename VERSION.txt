@@ -1,5 +1,5 @@
 AuraAgenda — Personal Life Planner
-Version: 2.0.3
+Version: 2.0.4
 Edition: Security Hardening & Owner Recovery
 Architecture: Desktop local-first / Windows / SQLite / PySide6
 Languages: Español / English

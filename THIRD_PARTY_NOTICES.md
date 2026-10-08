@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-AuraAgenda 2.0.3 declares the following direct dependencies:
+AuraAgenda 2.0.4 declares the following direct dependencies:
 
 ## Runtime
 

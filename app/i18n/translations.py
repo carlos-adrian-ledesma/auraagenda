@@ -77,7 +77,7 @@ EN = {
 }
 
 
-# V2.0.3 visual-system and settings copy.  Keeping these strings in the
+# Visual-system and settings copy. Keeping these strings in the
 # centralized catalogue prevents the redesign from introducing hardcoded labels.
 ES.update({
     "settings.subtitle":"Preferencias locales de AuraAgenda.",
@@ -101,9 +101,9 @@ ES.update({
     "settings.cycle":"Ciclo", "settings.sleep":"Sueño", "settings.mood":"Estado de ánimo",
     "settings.beauty":"Belleza", "settings.style":"Estilo", "settings.multimedia":"Multimedia",
     "settings.backup_retention":"Retención de backups", "settings.default_storage":"Almacenamiento predeterminado",
-    "settings.import_v1":"Importar datos V1", "settings.never":"Nunca", "settings.reference":"Referencia",
+    "settings.never":"Nunca", "settings.reference":"Referencia",
     "settings.local_copy":"Copia local", "settings.minutes":"{value} min",
-    "settings.about_text":"AuraAgenda 2.0.3\nLocal-first · Offline · SQLite\nQuintaDimension Tecnologia",
+    "settings.about_text":"AuraAgenda 2.0.4\nLocal-first · Offline · SQLite\nQuintaDimension Tecnologia",
     "settings.save_changes":"Guardar cambios", "settings.unsaved_hint":"Los cambios se aplican al guardar.",
     "ui.search_everything":"Buscar en AuraAgenda…", "ui.notifications":"Notificaciones",
 })
@@ -130,9 +130,9 @@ EN.update({
     "settings.cycle":"Cycle", "settings.sleep":"Sleep", "settings.mood":"Mood",
     "settings.beauty":"Beauty", "settings.style":"Style", "settings.multimedia":"Multimedia",
     "settings.backup_retention":"Backup retention", "settings.default_storage":"Default storage",
-    "settings.import_v1":"Import V1 data", "settings.never":"Never", "settings.reference":"Reference",
+    "settings.never":"Never", "settings.reference":"Reference",
     "settings.local_copy":"Local copy", "settings.minutes":"{value} min",
-    "settings.about_text":"AuraAgenda 2.0.3\nLocal-first · Offline · SQLite\nQuintaDimension Tecnologia",
+    "settings.about_text":"AuraAgenda 2.0.4\nLocal-first · Offline · SQLite\nQuintaDimension Tecnologia",
     "settings.save_changes":"Save changes", "settings.unsaved_hint":"Changes are applied when you save.",
     "ui.search_everything":"Search AuraAgenda…", "ui.notifications":"Notifications",
 })

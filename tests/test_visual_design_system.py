@@ -47,12 +47,12 @@ class VisualDesignSystemTests(unittest.TestCase):
         self.assertEqual(SPACING['lg'], 16)
         self.assertEqual(RADIUS['xl'], 16)
 
-    def test_v203_identity_is_consistent(self):
+    def test_v204_identity_is_consistent(self):
         text = (ROOT / 'app' / 'paths.py').read_text(encoding='utf-8')
-        self.assertIn('VERSION = "2.0.3"', text)
+        self.assertIn('VERSION = "2.0.4"', text)
         for path in [ROOT / 'VERSION.txt', ROOT / 'installer' / 'AuraAgenda.iss']:
             data = path.read_text(encoding='utf-8')
-            self.assertIn('2.0.3', data)
+            self.assertIn('2.0.4', data)
             self.assertNotIn('2.0.2', data)
 
 

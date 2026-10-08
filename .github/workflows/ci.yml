@@ -38,6 +38,9 @@ jobs:
       - name: Ruff safety lint
         run: python -m ruff check app tests --select F,E9
 
+      - name: Dependency security audit
+        run: python -m pip_audit -r requirements.txt
+
       - name: Unit and security tests
         env:
           QT_QPA_PLATFORM: offscreen

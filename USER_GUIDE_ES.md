@@ -1,4 +1,4 @@
-# Guía de usuario — AuraAgenda 2.0.3
+# Guía de usuario — AuraAgenda 2.0.4
 
 Al iniciar por primera vez, el asistente permite elegir idioma, nombre, país, zona horaria, moneda, formato de fecha, módulos opcionales, objetivo de agua, tema y PIN local opcional. Ningún dato de salud es obligatorio.
 
@@ -10,7 +10,7 @@ La Papelera restaura elementos eliminados o permite borrarlos definitivamente co
 
 Los módulos de ciclo, salud, sueño y bienestar sirven para organización personal. No diagnostican ni sustituyen asesoramiento médico.
 
-## Seguridad y recuperación del propietario — V2.0.3
+## Seguridad y recuperación del propietario — V2.0.4
 
 En **Configuración → Privacidad** podés generar una clave maestra única para esa instalación. Guardala fuera de la PC. No existe una contraseña universal del desarrollador.
 
