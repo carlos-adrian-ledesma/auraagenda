@@ -148,3 +148,26 @@ python -m compileall -q .
 python -m unittest discover -s tests -v
 python -m ruff check app tests --select F,E9
 python -m pip_audit -r requirements.txt
+
+
+```
+
+## Latest Release
+
+**Current version:** v2.0.4 — Final Portfolio & Security Release.
+
+[View the latest release](https://github.com/carlos-adrian-ledesma/auraagenda/releases/tag/v2.0.4)
+
+The release provides runnable application source code and Windows launchers. It is not a standalone executable.
+
+**Requirements:** Windows with Python 3.11 or 3.12.
+
+## Continuous Integration
+
+[View GitHub Actions](https://github.com/carlos-adrian-ledesma/auraagenda/actions/workflows/ci.yml)
+
+The Windows CI workflow runs source compilation, Ruff checks, dependency auditing and automated tests.
+
+## Project Status
+
+Portfolio-ready source release. Security controls and automated checks are documented, while final real-world deployment validation remains a separate step.
